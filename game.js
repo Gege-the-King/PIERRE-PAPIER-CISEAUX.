@@ -1,67 +1,92 @@
-const contenantChoixOrdinateur = document.getElementById('choix-ordinateur')
-const contenantChoixUtilisateur = document.getElementById('choix-utilisateur')
-const contenantResultat = document.getElementById('resultat')
+const contenantChoixOrdinateur = document.getElementById('choix-ordinateur');
+const contenantChoixUtilisateur = document.getElementById('choix-utilisateur');
+const contenantResultat = document.getElementById('resultat');
 
-const choixPossibles = document.querySelectorAll('button')
-let choixUtilisateur
-let choixOrdinateur
-let resultat
+const scoreUtilisateurSpan = document.getElementById('score-utilisateur');
+const scoreOrdinateurSpan = document.getElementById('score-ordinateur');
+const scoreEgaliteSpan = document.getElementById('score-egalite');
 
-// Evenement "click sur les bouttons"
+const choixPossibles = document.querySelectorAll('.choix.jeu button'); // Boutons Pierre, Papier, Ciseaux
+const boutonRejouer = document.getElementById('rejouer'); // Bouton Rejouer
 
-choixPossibles.forEach(choixPossible => choixPossible.addEventListener ('click', (e) =>{
-    // Récupération de l'ID du boutton cliqué
-    choixUtilisateur = e.target.id ;
-    // On ajoute l'image qui correspond au choix
-    contenantChoixUtilisateur.innerHTML =`<img src ="${choixUtilisateur}.png">`
-    generer_choix_ordinateur ()
-    verification ()
-})
+let choixUtilisateur;
+let choixOrdinateur;
+let resultat;
+
+// Variables de score
+let scoreUtilisateur = 0;
+let scoreOrdinateur = 0;
+let scoreEgalite = 0;
+
+// Événement "click sur les boutons Pierre, Papier, Ciseaux"
+choixPossibles.forEach(choixPossible => 
+    choixPossible.addEventListener('click', (e) => {
+        // Récupération de l'ID du bouton cliqué
+        choixUtilisateur = e.target.id;
+        // Ajout de l'image correspondant au choix
+        contenantChoixUtilisateur.innerHTML = `<img src="${choixUtilisateur}.png">`;
+        generer_choix_ordinateur();
+        verification();
+        mettreAJourScores();
+    })
 );
 
-
-//fonction pour génerer les choix de l'ordinateur
+// Fonction pour générer le choix de l'ordinateur
 function generer_choix_ordinateur() {
-    random = Math.floor(Math.random() *3) +1 // Génère des nombres compris entre 1 et 3
-    if (random === 1) { // random = à 1
-        choixOrdinateur = "pierre"
+    const random = Math.floor(Math.random() * 3) + 1; // Génère un nombre entre 1 et 3
+    if (random === 1) choixOrdinateur = "pierre";
+    if (random === 2) choixOrdinateur = "papier";
+    if (random === 3) choixOrdinateur = "ciseaux";
 
-    }
-    if (random === 2) { // random = à 2
-        choixOrdinateur = "papier"
-
-    }
-    if (random ===3) { // random = à 3
-       choixOrdinateur = "ciseaux"
-    }
-    // On ajoute l'image qui correspond au choix
-    contenantChoixOrdinateur.innerHTML =`<img src ="${choixOrdinateur}.png">`
+    // Ajout de l'image correspondant au choix
+    contenantChoixOrdinateur.innerHTML = `<img src="${choixOrdinateur}.png">`;
 }
 
-//fonction pour vérifier si  l'utilisateur a gagné ou perdu
-function verification (){
-    if(choixUtilisateur == choixOrdinateur){
-        resultat = "Egalité"
+// Fonction pour vérifier si l'utilisateur a gagné ou perdu
+function verification() {
+    if (choixUtilisateur === choixOrdinateur) {
+        resultat = "Égalité";
+        // En cas d'égalité, les scores ne changent pas
+    } else if (
+        (choixUtilisateur === "pierre" && choixOrdinateur === "ciseaux") ||
+        (choixUtilisateur === "papier" && choixOrdinateur === "pierre") ||
+        (choixUtilisateur === "ciseaux" && choixOrdinateur === "papier")
+    ) {
+        resultat = "Vous avez Gagné";
+        scoreUtilisateur += 1; // Le score de l'utilisateur augmente de 1
+    } else {
+        resultat = "Vous avez Perdu";
+        scoreOrdinateur += 1; // Le score de l'ordinateur augmente de 1
     }
-    // Quand le joueur perd
-    if(choixUtilisateur== "pierre" && choixOrdinateur == "papier" ){
-        resultat = "Vous avez Perdu"
-    }
-    if(choixUtilisateur== "papier" && choixOrdinateur == "ciseaux" ){
-        resultat = "Vous avez Perdu"
-    }
-    if(choixUtilisateur== "ciseaux" && choixOrdinateur == "pierre" ){
-        resultat = "Vous avez Perdu"
-    }
-    // Quand le joueur gagne
-    if(choixUtilisateur== "papier" && choixOrdinateur == "pierre" ){
-        resultat = "Vous avez Gagné"
-    }
-    if(choixUtilisateur== "ciseaux" && choixOrdinateur == "papier" ){
-        resultat = "Vous avez Gagné"
-    }
-    if(choixUtilisateur== "pierre" && choixOrdinateur == "ciseaux" ){
-        resultat = "Vous avez Gagné"
-    }
-    contenantResultat.innerHTML = resultat
+
+    contenantResultat.innerHTML = resultat;
+    mettreAJourScores(); // Mettre à jour les scores affichés
 }
+
+
+// Mettre à jour les scores affichés
+function mettreAJourScores() {
+    scoreUtilisateurSpan.textContent = scoreUtilisateur;
+    scoreOrdinateurSpan.textContent = scoreOrdinateur;
+    scoreEgaliteSpan.textContent = scoreEgalite;
+}
+
+// Réinitialiser le jeu avec le bouton rejouer
+boutonRejouer.addEventListener('click', () => {
+    choixUtilisateur = "";
+    choixOrdinateur = "";
+    resultat = "";
+
+    // Réinitialisation des scores
+    scoreUtilisateur = 0;
+    scoreOrdinateur = 0;
+    scoreEgalite = 0;
+
+    // Réinitialisation des contenus
+    contenantChoixUtilisateur.innerHTML = "";
+    contenantChoixOrdinateur.innerHTML = "";
+
+    // Mise à jour des scores affichés
+    mettreAJourScores();
+});
+
