@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    flex-direction: column;
+    background-image: url('background.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    margin: 0;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    background-color: #fff;
+    padding: 25px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+}
+.choix {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.choix h4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+    color: #56535f;
+}
+img {
+    width: 60px;
+    height: 60px;
+    margin: 20px 0;
+}
+button {
+    padding: 5px 30px ;
+    margin-top: 20px;
+    border: 1px solid #3713db;
+    background-color: #3713db;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0,5s;
+    text-transform: capitalize;
+}
+button:focus{
+    background-color: #fff;
+    color: #3713db;
+}
