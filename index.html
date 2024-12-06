@@ -9,10 +9,21 @@
 <body>
     <section>
         <div class="choix">
-            <h4>Vous <span id="choix-utilisateur"></span></h4>
-            <h4>Ordinateur <span id="choix-ordinateur"></span></h4>
+            <h4>Vous 
+                <p id="score-utilisateur"></p>
+                <span id="choix-utilisateur"></span>
+            </h4>
+            <h4>Ordinateur 
+                <p id="score-ordinateur"></p>
+                <span id="choix-ordinateur"></span>
+            </h4>
+        </div>
+
+        <div class="resultat">
+            <h4> <span id="resultat"></span></h4>
         </div>
         <h4> <span id="resultat"></span></h4>
+        
         <div class="button choix jeu">
             <button id="pierre">Pierre</button>
             <button id="papier">Papier</button>
@@ -21,6 +32,7 @@
         <div class="button replay">
             <button id="rejouer">Rejouer</button>
         </div>
+        
     </section>
     <script src="game.js"></script>
     
