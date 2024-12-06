@@ -13,7 +13,7 @@ Fonctionnalités
 Installation
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/monpseudo/pierre-papier-ciseaux.git
+   git clone https://github.com/Gege-the-King/PIERRE-PAPIER-CISEAUX./edit/main/README.md
    ```
 2. Accédez au répertoire du projet :
    ```bash
